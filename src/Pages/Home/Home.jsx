@@ -1,5 +1,6 @@
 import React from "react";
 import { BsTools } from "react-icons/bs";
+import Footer from "../../Common/Footer";
 
 const Home = () => {
   const url =
@@ -47,6 +48,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
+      <Footer/>
     </div>
   );
 };
