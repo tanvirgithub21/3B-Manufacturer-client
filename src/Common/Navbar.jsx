@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = ({children}) => {
   return (
-    <div class="drawer drawer-end">
+    <div class="drawer drawer-end max-w-[1280px] mx-auto">
   <input id="my-drawer-3" type="checkbox" class="drawer-toggle" /> 
   <div class="drawer-content flex flex-col">
     <div class="w-full navbar bg-base-300">
