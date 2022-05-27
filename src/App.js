@@ -24,8 +24,8 @@ function App() {
           <Route path='/blog' element={<Blog />} />
 
           <Route path='/dashboard' element={<Dashboard />} >
-            <Route path="myProfile" element={<MyProfile/> } />
             <Route path="myOdder" element={<MyOdder/>} />
+            <Route path="myProfile" element={<MyProfile/> } />
             <Route path="addReview" element={<AddReview/>} />
             <Route path="manageOdder" element={<ManageOdder/>} />
             <Route path="manageProduct" element={<ManageProduct/>} />

@@ -10,7 +10,7 @@ const Navbar = ({ children }) => {
         </NavLink>
       </li>
       <li className="ml-3">
-        <NavLink to="/dashboard" className="rounded-md">
+        <NavLink to="/dashboard/myOdder" className="rounded-md">
           Dashboard
         </NavLink>
       </li>
