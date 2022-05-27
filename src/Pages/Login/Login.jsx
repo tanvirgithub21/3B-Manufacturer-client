@@ -1,15 +1,16 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import Footer from "../../Common/Footer";
 
 const Login = () => {
   return (
-    <section className="min-h-[91%] bg-accent">
+    <section className=" bg-accent">
       <h2 className="text-white text-3xl text-center mt-5 font-semibold">
         Login
       </h2>
 
-      <div className="">
+      <div className="pb-[3rem]">
         <form action="flex justify-center items-center">
           <div className="flex flex-col items-center gap-5 pt-[3rem]">
             <input
@@ -52,6 +53,7 @@ const Login = () => {
           </button>
         </div>
       </div>
+      <Footer />
     </section>
   );
 };

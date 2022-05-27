@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import DashboardManu from "../../Common/DashboardManu";
 
 const Dashboard = () => {
-    return (
-        <div>
-            <h3>This is dashboard</h3>
-        </div>
-    );
+  return (
+    <DashboardManu>
+      <Outlet />
+    </DashboardManu>
+  );
 };
 
 export default Dashboard;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Footer from "../../Common/Footer";
 
 const SingIn = () => {
   return (
@@ -8,7 +9,7 @@ const SingIn = () => {
         SingIn
       </h2>
 
-      <div className="">
+      <div className="pb-[1rem] min-h-[92%]">
         <form action="flex justify-center items-center">
           <div className="flex flex-col items-center gap-5 pt-[3rem]">
             <input
@@ -49,6 +50,7 @@ const SingIn = () => {
          
         </form>
       </div>
+      <Footer/>
     </section>
   );
 };
