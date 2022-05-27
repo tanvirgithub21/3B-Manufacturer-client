@@ -19,6 +19,7 @@ const Navbar = ({children}) => {
           <li><NavLink to="/" className="rounded-md" >Home</NavLink></li>
           <li><NavLink to="/blog" className="rounded-md" >Blog</NavLink></li>
           <li><NavLink to="/login" className="rounded-md" >Login</NavLink></li>
+          <li><NavLink to="/singIn" className="rounded-md" >SingIn</NavLink></li>
 
         </ul>
       </div>
@@ -32,6 +33,8 @@ const Navbar = ({children}) => {
       <li><NavLink to="/" >Home</NavLink></li>
       <li><NavLink to="/blog" >Sidebar Item 2</NavLink></li>
       <li><NavLink to="/login" className="rounded-md" >Login</NavLink></li>
+      <li><NavLink to="/singIn" className="rounded-md" >SingIn</NavLink></li>
+
 
       
     </ul>
