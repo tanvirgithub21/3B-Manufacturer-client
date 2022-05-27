@@ -70,7 +70,7 @@ const Login = () => {
               value="Loin"
             />
               <div className="text-white font-semibold text-sm">
-                <Link to="">Forgotten password?</Link>
+                <Link to="/forgot">Forgotten password?</Link>
               </div>
               <div className="text-white font-semibold text-sm">
                 <Link to="">Create new account?</Link>

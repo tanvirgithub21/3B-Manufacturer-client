@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Product from './Pages/Product/Product';
 import Footer from './Common/Footer';
+import Forgot from './Pages/Login/Forgot';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 
           <Route path='/myPortfolio' element={<MyPortfolio />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/forgot' element={<Forgot />} />
           <Route path='/singIn' element={<SingIn />} />
         </Routes>
         <ToastContainer/>
