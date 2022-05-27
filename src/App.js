@@ -16,6 +16,7 @@ import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 import SingIn from './Pages/SingIn/SingIn';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Product from './Pages/Product/Product';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<Blog />} />
+          <Route path='/product' element={<Product />} />
 
           <Route path='/dashboard' element={<Dashboard />} >
             <Route path="myOdder" element={<MyOdder />} />
