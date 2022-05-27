@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -23,6 +23,8 @@ const Login = () => {
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
+
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] = useSignInWithGoogle(auth);
 
   const { register, handleSubmit } = useForm();
 
@@ -77,7 +79,7 @@ const Login = () => {
             <div class="w-full max-w-xs text-white divider mx-auto">OR</div>
           </div>
         </form>
-        <div className="w-full">
+        <div onClick={() => signInWithGoogle()} className="w-full">
           <button className="flex justify-center items-center  px-5 py-3 bg-blue-100 text-xl text-black font-semibold rounded-lg mx-auto max-w-xs w-full">
             <FcGoogle className="text-3xl mr-3" />
             <span>Sing IN with Google</span>
