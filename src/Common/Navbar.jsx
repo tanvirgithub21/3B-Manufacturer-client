@@ -1,7 +1,14 @@
+import { signOut } from "firebase/auth";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import auth from "../fierbase.init";
 
 const Navbar = ({ children }) => {
+
+  const logout = () => {
+    signOut(auth);
+  };
+
   const navRoute = (
     <>
       <li className="ml-3">
@@ -33,6 +40,12 @@ const Navbar = ({ children }) => {
         <NavLink to="/singIn" className="rounded-md">
           SingIn
         </NavLink>
+      </li>
+      <li className="ml-3">
+        <button onClick={logout}>
+          SingOut
+        </button>
+          
       </li>
     </>
   );

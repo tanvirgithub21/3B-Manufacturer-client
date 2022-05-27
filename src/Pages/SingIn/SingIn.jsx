@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import Footer from "../../Common/Footer";
 import { useForm } from "react-hook-form";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from "../../fierbase.init";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
 const SingIn = () => {
+
+  const [liveUser] = useAuthState(auth)
+
   const location = useLocation()
   const navigate = useNavigate()
   let from = location.state?.from?.pathname || "/";
@@ -34,7 +37,6 @@ const SingIn = () => {
         if(!emailUserError){
           toast.success("Email Verification Sent")
           reset()
-          navigate(from)
         }else{
           toast.error(`${emailUserError?.message.slice(22, -2)?.toUpperCase()}`)
           
@@ -49,6 +51,12 @@ const SingIn = () => {
     }
 
   }
+  
+  console.log(liveUser);
+  if(liveUser){
+    navigate(from)
+  }
+
 
   return (
     <section className="min-h-[91%] bg-accent">
