@@ -17,6 +17,7 @@ import SingIn from './Pages/SingIn/SingIn';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Product from './Pages/Product/Product';
+import Footer from './Common/Footer';
 
 function App() {
   return (

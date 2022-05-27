@@ -64,7 +64,7 @@ const SingIn = () => {
         SingIn
       </h2>
 
-      <div className="pb-[1rem] min-h-[92%]">
+      <div className="min-h-[92%]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-5 pt-[3rem]">
             <input
