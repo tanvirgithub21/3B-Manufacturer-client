@@ -14,6 +14,8 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 import SingIn from './Pages/SingIn/SingIn';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -24,19 +26,20 @@ function App() {
           <Route path='/blog' element={<Blog />} />
 
           <Route path='/dashboard' element={<Dashboard />} >
-            <Route path="myOdder" element={<MyOdder/>} />
-            <Route path="myProfile" element={<MyProfile/> } />
-            <Route path="addReview" element={<AddReview/>} />
-            <Route path="manageOdder" element={<ManageOdder/>} />
-            <Route path="manageProduct" element={<ManageProduct/>} />
-            <Route path="addProduct" element={<AddProduct/>} />
-            <Route path="makeAdmin" element={<MakeAdmin/>} />
+            <Route path="myOdder" element={<MyOdder />} />
+            <Route path="myProfile" element={<MyProfile />} />
+            <Route path="addReview" element={<AddReview />} />
+            <Route path="manageOdder" element={<ManageOdder />} />
+            <Route path="manageProduct" element={<ManageProduct />} />
+            <Route path="addProduct" element={<AddProduct />} />
+            <Route path="makeAdmin" element={<MakeAdmin />} />
           </Route>
 
           <Route path='/myPortfolio' element={<MyPortfolio />} />
           <Route path='/login' element={<Login />} />
           <Route path='/singIn' element={<SingIn />} />
         </Routes>
+        <ToastContainer/>
       </Navbar>
     </div>
   );
