@@ -1,13 +1,11 @@
 import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { NavLink } from "react-router-dom";
 import auth from "../fierbase.init";
 
 const Navbar = ({ children }) => {
-
-  const logout = () => {
-    signOut(auth);
-  };
+  const [liveUser] = useAuthState(auth);
 
   const navRoute = (
     <>
@@ -31,22 +29,30 @@ const Navbar = ({ children }) => {
           My Portfolio
         </NavLink>
       </li>
-      <li className="ml-3">
-        <NavLink to="/login" className="rounded-md">
-          Login{" "}
-        </NavLink>
-      </li>
-      <li className="ml-3">
-        <NavLink to="/singIn" className="rounded-md">
-          SingIn
-        </NavLink>
-      </li>
-      <li className="ml-3">
-        <button onClick={logout}>
-          SingOut
-        </button>
-          
-      </li>
+
+      {liveUser ? (
+        <li className="ml-3">
+          <button
+            className="bg-red-600 text-white rounded-xl"
+            onClick={() => signOut(auth)}
+          >
+            SingOut
+          </button>
+        </li>
+      ) : (
+        <>
+          <li className="ml-3">
+            <NavLink to="/login" className="rounded-md">
+              Login{" "}
+            </NavLink>
+          </li>
+          <li className="ml-3">
+            <NavLink to="/singIn" className="rounded-md">
+              SingIn
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 

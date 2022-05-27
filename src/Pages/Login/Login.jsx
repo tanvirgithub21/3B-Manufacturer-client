@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Footer from "../../Common/Footer";
+import auth from "../../fierbase.init";
+
 
 const Login = () => {
+
+  const [liveUser] = useAuthState(auth)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  let from = location.state?.from?.pathname || "/";
+
+
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = data => {
+    signInWithEmailAndPassword(data.email, data.pass)
+
+  }
+
+
+
+  useEffect(() =>{
+    error && toast.error(error.message.slice(22, -2).toUpperCase());
+    liveUser && navigate(from)
+  },[liveUser, error])
+
+
   return (
     <section className=" bg-accent">
       <h2 className="text-white text-3xl text-center mt-5 font-semibold">
@@ -11,25 +46,21 @@ const Login = () => {
       </h2>
 
       <div className="pb-[3rem]">
-        <form action="flex justify-center items-center">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-5 pt-[3rem]">
             <input
-              type="text"
-              placeholder="Type here"
-              class="input w-full max-w-xs"
-              required
-            />
-            <input
-              required
               type="email"
-              placeholder="Type here"
-              class="input w-full max-w-xs"
-            />
-            <input
-              type="password"
-              placeholder="Type here"
+              placeholder="Enter your Email"
               class="input w-full max-w-xs"
               required
+              {...register("email")}
+            />
+            <input
+              required
+              type="password"
+              placeholder="Enter Your Password"
+              class="input w-full max-w-xs"
+              {...register("pass")}
             />
             <input
               type="submit"
