@@ -14,9 +14,9 @@ useEffect(() => {
   return (
     <div>
         <h1 className="text-2xl font-semibold text-center my-8">All Product</h1>
-      <div className="grid grid-cols-3 gap-14 px-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 md:gap-10 px-6">
         {productData.map((pd) => (
-            <SinglePd pd={pd}/>
+            <SinglePd key={pd?._id} pd={pd}/>
         ))}
       </div>
     </div>
