@@ -1,44 +1,89 @@
-import React, { useEffect } from "react";
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { configure } from "@testing-library/react";
+import React, { useEffect, useState } from "react";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../../Common/Footer";
 import auth from "../../fierbase.init";
-
+import useExistingUser from "../../Hooks/useExistingUser";
 
 const Login = () => {
+  const [liveUser] = useAuthState(auth);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [liveUser] = useAuthState(auth)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [ existingUser, setExistingUser] = useState()
 
   let from = location.state?.from?.pathname || "/";
 
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
+    useSignInWithGoogle(auth);
 
-  const [
-    signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useSignInWithEmailAndPassword(auth);
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
+    // await fetch("http://localhost:5000/user", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(userData),
+    // })
+    //   .then((req) => req.json())
+    //   .then((data) => data && navigate(from));
+  };
 
-  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] = useSignInWithGoogle(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = data => {
-    signInWithEmailAndPassword(data.email, data.pass)
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.email, data.pass);
+  };
 
-  }
+  useEffect(() => {
 
 
+    // const email = liveUser?.email;
 
-  useEffect(() =>{
+    // if(email){
+    //   fetch(`http://localhost:5000/user?userEmail=${email}`,{
+    //     method: "GET",
+    //     headers: {
+    //       "content-type": "application/json",
+    //     }
+    // })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       if(data){
+    //         console.log("data paichi");
+    //       }else{
+    //         console.log("data paini");
+    //       }
+    //     })
+
+    // }
+
+
+    // {
+      //   const userEmail = data.userEmail
+    //   const userData = { userName: liveUser?.displayName, userEmail: liveUser?.email, userRoll: false }
+    //   if(email != userEmail){
+        
+    //   }
+    // }
+
+
     error && toast.error(error.message.slice(22, -2).toUpperCase());
-    liveUser && navigate(from)
-  },[liveUser, error])
+    liveUser && navigate(from);
+  }, [liveUser, error]);
+  
 
 
   return (
@@ -69,17 +114,17 @@ const Login = () => {
               className="input w-full max-w-xs text-white btn btn-primary"
               value="Loin"
             />
-              <div className="text-white font-semibold text-sm">
-                <Link to="/forgot">Forgotten password?</Link>
-              </div>
-              <div className="text-white font-semibold text-sm">
-                <Link to="">Create new account?</Link>
-              </div>
+            <div className="text-white font-semibold text-sm">
+              <Link to="/forgot">Forgotten password?</Link>
+            </div>
+            <div className="text-white font-semibold text-sm">
+              <Link to="">Create new account?</Link>
+            </div>
 
             <div className="w-full max-w-xs text-white divider mx-auto">OR</div>
           </div>
         </form>
-        <div onClick={() => signInWithGoogle()} className="w-full">
+        <div onClick={handleGoogleLogin} className="w-full">
           <button className="flex justify-center items-center  px-5 py-3 bg-blue-100 text-xl text-black font-semibold rounded-lg mx-auto max-w-xs w-full">
             <FcGoogle className="text-3xl mr-3" />
             <span>Sing IN with Google</span>

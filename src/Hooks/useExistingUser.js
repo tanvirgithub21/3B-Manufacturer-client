@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-const useAdmin = (userEmail) => {
+const useExistingUser = (userEmail) =>{
 
-
-
-    const [adminState, setAdminState] = useState(false)
+    const [existingUser, setExistingUser] = useState("")
 
     useEffect(() => {
 
@@ -17,13 +15,12 @@ const useAdmin = (userEmail) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setAdminState(data?.userRoll)
+                    setExistingUser(data?.userEmail)
                 })
         }
     }, [userEmail])
 
-    return [adminState, setAdminState]
+    return [existingUser]
+} 
 
-}
-
-export default useAdmin
+export default useExistingUser

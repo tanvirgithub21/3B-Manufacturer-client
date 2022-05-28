@@ -9,7 +9,7 @@ import auth from "../../fierbase.init";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SingIn = () => {
+  const SingIn = () => {
   const [liveUser] = useAuthState(auth);
 
   const location = useLocation();
