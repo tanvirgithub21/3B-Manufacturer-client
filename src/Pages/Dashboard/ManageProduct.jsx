@@ -8,8 +8,8 @@ const ManageProduct = () => {
 
     <h1 className="text-2xl text-center font-semibold mt-5 my-8">Manage Product</h1>
 
-      <div class="overflow-x-auto">
-        <table class="table table-compact w-full">
+      <div className="overflow-x-auto">
+        <table className="table table-compact w-full">
           <thead>
             <tr>
               <th></th>

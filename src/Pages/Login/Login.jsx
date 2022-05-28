@@ -53,7 +53,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Enter your Email"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               required
               {...register("email")}
             />
@@ -61,12 +61,12 @@ const Login = () => {
               required
               type="password"
               placeholder="Enter Your Password"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               {...register("pass")}
             />
             <input
               type="submit"
-              class="input w-full max-w-xs text-white btn btn-primary"
+              className="input w-full max-w-xs text-white btn btn-primary"
               value="Loin"
             />
               <div className="text-white font-semibold text-sm">
@@ -76,7 +76,7 @@ const Login = () => {
                 <Link to="">Create new account?</Link>
               </div>
 
-            <div class="w-full max-w-xs text-white divider mx-auto">OR</div>
+            <div className="w-full max-w-xs text-white divider mx-auto">OR</div>
           </div>
         </form>
         <div onClick={() => signInWithGoogle()} className="w-full">

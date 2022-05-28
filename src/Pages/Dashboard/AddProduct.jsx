@@ -11,16 +11,16 @@ const AddProduct = () => {
 
   return (
     <div>
-      <div class="flex justify-center">
-        <div class="w-full lg:max-w-lg ">
+      <div className="flex justify-center">
+        <div className="w-full lg:max-w-lg ">
 
-          <form onSubmit={handleSubmit(onSubmit)} class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 my-10">
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 my-10">
             <h2 className="text-xl font-semibold text-center mb-5">
               Add Product
             </h2>
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Product Name"
                 required
@@ -28,7 +28,7 @@ const AddProduct = () => {
               />
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 placeholder="Minimum Odder"
                 required
@@ -36,7 +36,7 @@ const AddProduct = () => {
               />
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 placeholder="Product Quantity"
                 required
@@ -44,7 +44,7 @@ const AddProduct = () => {
               />
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 placeholder="Product Price"
                 required
@@ -52,7 +52,7 @@ const AddProduct = () => {
               />
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="url"
                 placeholder="Product Img url"
                 required
@@ -60,7 +60,7 @@ const AddProduct = () => {
               />
 
               <input
-                class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 placeholder="Product Rating"
                 required
@@ -71,7 +71,7 @@ const AddProduct = () => {
                 required
                 {...register("pdDric")} />
 
-            <div class="mb-4">
+            <div className="mb-4">
               <button className="btn btn-accent w-full" type="submit">Add Product</button>
             </div>
           </form>

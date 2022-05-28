@@ -88,7 +88,7 @@ const SingIn = () => {
             <input
               type="text"
               placeholder="Name"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               required
               {...register("name")}
             />
@@ -96,20 +96,20 @@ const SingIn = () => {
               required
               type="email"
               placeholder="Email"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               {...register("email")}
             />
             <input
               type="password"
               placeholder="Password"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               required
               {...register("pass")}
             />
             <input
               type="password"
               placeholder="Conform Password"
-              class="input w-full max-w-xs"
+              className="input w-full max-w-xs"
               required
               {...register("confirmPass")}
             />
@@ -118,7 +118,7 @@ const SingIn = () => {
             }
             <input
               type="submit"
-              class="input w-full max-w-xs text-white btn btn-primary"
+              className="input w-full max-w-xs text-white btn btn-primary"
               value="Sing In"
             />
           </div>

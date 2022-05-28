@@ -31,13 +31,13 @@ const Forgot = () => {
             name="email"
             type="email"
             placeholder="Enter your Email"
-            class="input w-full"
+            className="input w-full"
             required
             {...register("email")}
           />
           <input
             type="submit"
-            class="input w-full text-white btn btn-primary"
+            className="input w-full text-white btn btn-primary"
             value="Loin"
           />
         </div>
