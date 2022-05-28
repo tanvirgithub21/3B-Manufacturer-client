@@ -1,12 +1,33 @@
+import { computeHeadingLevel } from "@testing-library/react";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import auth from "../../fierbase.init";
 
 const AddProduct = () => {
 
-    const { register, handleSubmit } = useForm();
+  const [liveUser ] = useAuthState(auth)
 
-    const onSubmit = data =>{
-        console.log(data)
+    const { register, handleSubmit, reset } = useForm();
+
+    const onSubmit = async data =>{
+      const addProductEmail = liveUser?.email
+      const productData = {...data, addProductEmail}
+        console.log(productData);
+        await fetch("http://localhost:5000/product", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(productData),
+          })
+            .then((req) => req.json())
+            .then((data) => {
+              console.log(data)
+              data && toast.success("Product Added")
+              reset()
+            })
     }
 
   return (
