@@ -27,15 +27,34 @@ const SingIn = () => {
   const { register, handleSubmit, reset} = useForm();
   const [error, setError] = useState("")
 
-  const onSubmit = data =>{
-
+  const onSubmit = async data =>{
+    const userData = {
+      userName: data?.name,
+      userEmail: data?.email,
+      userRoll: false,
+    }
+    console.log(userData)
     if(data?.confirmPass.length >= 6){
       setError("")
       if(data.pass === data.confirmPass){
         createUserWithEmailAndPassword(data?.email, data?.pass)
         
+        //send email verification send and store data to database 
         if(!emailUserError){
-          toast.success("Email Verification Sent")
+
+        await fetch("http://localhost:5000/user", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          }).then(req => req.json())
+          .then(data => {
+            data && toast.success("Email Verification Sent")
+          })
+
+
+
           reset()
         }else{
           toast.error(`${emailUserError?.message.slice(22, -2)?.toUpperCase()}`)
@@ -52,7 +71,6 @@ const SingIn = () => {
 
   }
   
-  console.log(liveUser);
   if(liveUser){
     navigate(from)
   }
