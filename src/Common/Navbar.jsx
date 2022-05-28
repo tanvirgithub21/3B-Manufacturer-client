@@ -1,11 +1,16 @@
 import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import auth from "../fierbase.init";
+import useAdmin from "../Hooks/useAdmin";
 
 const Navbar = ({ children }) => {
   const [liveUser] = useAuthState(auth);
+
+  const [adminStatus, setAdminState] = useAdmin(liveUser?.email);
+
+  const navigate = useNavigate()
 
   const navRoute = (
     <>
@@ -19,11 +24,15 @@ const Navbar = ({ children }) => {
           Product
         </NavLink>
       </li>
-      <li className="ml-3">
-        <NavLink to="/dashboard/myOdder" className="rounded-md">
-          Dashboard
-        </NavLink>
-      </li>
+
+      {liveUser && (
+        <li className="ml-3">
+          <NavLink to="/dashboard/myOdder" className="rounded-md">
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+
       <li className="ml-3">
         <NavLink to="/blog" className="rounded-md">
           Blog
@@ -39,7 +48,11 @@ const Navbar = ({ children }) => {
         <li className="ml-3">
           <button
             className="bg-red-600 text-white rounded-xl"
-            onClick={() => signOut(auth)}
+            onClick={() => {
+              signOut(auth);
+              setAdminState(false);
+              navigate("/")
+            }}
           >
             SingOut
           </button>
@@ -67,7 +80,11 @@ const Navbar = ({ children }) => {
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-base-300">
           {/* dashboard toggle btn  */}
-          <label htmlFor="my-drawer-2" tabIndex="0" className="btn btn-ghost lg:hidden">
+          <label
+            htmlFor="my-drawer-2"
+            tabIndex="0"
+            className="btn btn-ghost lg:hidden"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -113,7 +130,9 @@ const Navbar = ({ children }) => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">{navRoute}</ul>
+        <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
+          {navRoute}
+        </ul>
       </div>
     </div>
   );

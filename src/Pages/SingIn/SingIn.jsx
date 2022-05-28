@@ -1,80 +1,71 @@
 import React, { useState } from "react";
 import Footer from "../../Common/Footer";
 import { useForm } from "react-hook-form";
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {
+  useAuthState,
+  useCreateUserWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../fierbase.init";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 const SingIn = () => {
+  const [liveUser] = useAuthState(auth);
 
-  const [liveUser] = useAuthState(auth)
-
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   let from = location.state?.from?.pathname || "/";
 
+  const [createUserWithEmailAndPassword, user, loading, emailUserError] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    emailUserError,
-  ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const { register, handleSubmit, reset } = useForm();
+  const [error, setError] = useState("");
 
-
-  const { register, handleSubmit, reset} = useForm();
-  const [error, setError] = useState("")
-
-  const onSubmit = async data =>{
+  const onSubmit = async (data) => {
     const userData = {
       userName: data?.name,
       userEmail: data?.email,
       userRoll: false,
-    }
-    console.log(userData)
-    if(data?.confirmPass.length >= 6){
-      setError("")
-      if(data.pass === data.confirmPass){
-        createUserWithEmailAndPassword(data?.email, data?.pass)
-        
-        //send email verification send and store data to database 
-        if(!emailUserError){
+    };
+    console.log(userData);
+    if (data?.confirmPass.length >= 6) {
+      setError("");
+      if (data.pass === data.confirmPass) {
+        createUserWithEmailAndPassword(data?.email, data?.pass);
 
-        await fetch("http://localhost:5000/user", {
-            method: 'POST',
+        //send email verification send and store data to database
+        if (!emailUserError) {
+          await fetch("http://localhost:5000/user", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(userData)
-          }).then(req => req.json())
-          .then(data => {
-            data && toast.success("Email Verification Sent")
+            body: JSON.stringify(userData),
           })
+            .then((req) => req.json())
+            .then((data) => {
+              data && toast.success("Email Verification Sent");
+            });
 
-
-
-          reset()
-        }else{
-          toast.error(`${emailUserError?.message.slice(22, -2)?.toUpperCase()}`)
-          
+          reset();
+        } else {
+          toast.error(
+            `${emailUserError?.message.slice(22, -2)?.toUpperCase()}`
+          );
         }
-        setError("")
+        setError("");
+      } else {
+        return setError("Password Not Match");
       }
-      else{
-        return setError("Password Not Match")
-      }
-    }else{
-      setError("Minimum 6 Character")
+    } else {
+      setError("Minimum 6 Character");
     }
+  };
 
+  if (liveUser) {
+    navigate(from);
   }
-  
-  if(liveUser){
-    navigate(from)
-  }
-
 
   return (
     <section className="min-h-[91%] bg-accent">
@@ -113,9 +104,11 @@ const SingIn = () => {
               required
               {...register("confirmPass")}
             />
-            {
-              error && <small className="text-red-600 text-sm font-semibold">{error}</small>
-            }
+            {error && (
+              <small className="text-red-600 text-sm font-semibold">
+                {error}
+              </small>
+            )}
             <input
               type="submit"
               className="input w-full max-w-xs text-white btn btn-primary"
@@ -123,14 +116,16 @@ const SingIn = () => {
             />
           </div>
           <div className="w-full max-w-xs text-white mx-auto">
-
-              <p className="text-center mt-5">Have a already account? <span className="text-black font-semibold cursor-pointer">Login</span></p>
-        
+            <p className="text-center mt-5">
+              Have a already account?{" "}
+              <span className="text-black font-semibold cursor-pointer">
+                Login
+              </span>
+            </p>
           </div>
-         
         </form>
       </div>
-      <Footer/>
+      <Footer />
     </section>
   );
 };
