@@ -1,7 +1,17 @@
 import React from 'react';
-import Rating from '../../Common/Rating';
+import Rating from './Rating'
 
 const SinglePd = ({pd}) => {
+
+
+  let newDric;
+  if((pd?.pdDric.length) >= 250){
+    newDric = pd?.pdDric.slice(0, 245) + " " + "...";
+  }else{
+    newDric = pd?.pdDric;
+  }
+
+
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
         <figure>
@@ -9,7 +19,7 @@ const SinglePd = ({pd}) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{pd?.pdName}</h2>
-          <p>{pd?.pdDric}</p>
+          <p>{newDric}</p>
           <div className="flex justify-between items-center text-base font-semibold">
             <h2>Minimum Odder {pd?.minOdder}</h2>
             <h2>Available Product {pd?.availablePd}</h2>

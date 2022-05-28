@@ -1,45 +1,21 @@
-import React from "react";
-import SinglePd from "./SinglePd";
+import React, { useEffect, useState } from "react";
+import SinglePd from "../../Common/SinglePd";
 
 const Product = () => {
-  const cardDataFormet = [
-    {
-      pdName: "Product name",
-      pdImg: "https://api.lorem.space/image/shoes?w=400&h=225",
-      pdDric:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores, error. Facilis assumenda aperiam quaerat veritatis ducimus unde, deleniti laborum reiciendis? Pariatur, provident. Non, eos rem!",
-      minOdder: 50,
-      availablePd: 60,
-      price: 520,
-      rating: 2.5,
-    },
-    {
-      pdName: "Product name",
-      pdImg: "https://api.lorem.space/image/shoes?w=400&h=225",
-      pdDric:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores, error. Facilis assumenda aperiam quaerat veritatis ducimus unde, deleniti laborum reiciendis? Pariatur, provident. Non, eos rem!",
-      minOdder: 50,
-      availablePd: 60,
-      price: 520,
-      rating: 2.5,
-    },
-    {
-      pdName: "Product name",
-      pdImg: "https://api.lorem.space/image/shoes?w=400&h=225",
-      pdDric: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores, error. Facilis assumenda aperiam quaerat veritatis ducimus unde, deleniti laborum reiciendis? Pariatur, provident. Non, eos rem!",
-      minOdder: 50,
-      availablePd: 60,
-      price: 520,
-      rating: 2.5,
-    },
-  ];
+  
+const [productData, setProductData] = useState([])
 
+useEffect(() => {
+  fetch("http://localhost:5000/product")
+  .then(res => res.json())
+  .then(data => setProductData(data))
+},[])
 
   return (
     <div>
         <h1 className="text-2xl font-semibold text-center my-8">All Product</h1>
       <div className="grid grid-cols-3 gap-14 px-6">
-        {cardDataFormet.map((pd) => (
+        {productData.map((pd) => (
             <SinglePd pd={pd}/>
         ))}
       </div>
