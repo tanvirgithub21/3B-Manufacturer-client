@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsTools } from "react-icons/bs";
 import Footer from "../../Common/Footer";
+import Review from "../../Common/Review";
 import SinglePd from "../../Common/SinglePd";
 
 const Home = () => {
@@ -8,12 +9,18 @@ const Home = () => {
     "https://www.planettogether.com/hs-fs/hubfs/lean_manu_tools.jpg?width=1250&name=lean_manu_tools.jpg";
 
   const [latestPd, setLatestPd] = useState([]);
+  const [review, setReview] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/homeProduct")
       .then((res) => res.json())
       .then((data) => setLatestPd(data));
+
+    fetch("http://localhost:5000/review")
+    .then(res => res.json())
+    .then(data => setReview(data))
   }, []);
+
 
   return (
     <div>
@@ -50,11 +57,25 @@ const Home = () => {
         </div>
       </section>
 
+
+      <section>
+        <h2 className="text-center font-semibold text-xl sm:text-3xl mt-10 mb-14">
+          Latest Review
+        </h2>
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 md:gap-10 px-6">
+            {review.map((review) => (
+              <Review key={review?._id} review={review} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="px-5 my-[5rem]">
         <h2 className="text-center font-semibold text-xl sm:text-3xl my-5">
           Business Summary
         </h2>
-        <div className="grid grid-cols-3 justify-center gap-12 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 md:gap-10 px-6">
           <div className="rounded bg-primary text-primary-content place-content-center flex flex-col items-center p-[2rem]">
             <BsTools className="text-7xl" />
             <p className="text-2xl font-[500] mt-3">Tootle Tootles</p>

@@ -6,7 +6,7 @@ const SinglePd = ({pd}) => {
 
   console.log(pd);
   let newDric;
-  if((pd?.pdDric.length) >= 250){
+  if((pd?.pdDric?.length) >= 250){
     newDric = pd?.pdDric.slice(0, 245) + " " + "...";
   }else{
     newDric = pd?.pdDric;

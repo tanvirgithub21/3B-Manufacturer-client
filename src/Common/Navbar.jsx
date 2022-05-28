@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import auth from "../fierbase.init";
 import useAdmin from "../Hooks/useAdmin";
 
@@ -10,7 +10,8 @@ const Navbar = ({ children }) => {
 
   const [adminStatus, setAdminState] = useAdmin(liveUser?.email);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const navRoute = (
     <>
@@ -51,7 +52,7 @@ const Navbar = ({ children }) => {
             onClick={() => {
               signOut(auth);
               setAdminState(false);
-              navigate("/")
+              navigate("/");
             }}
           >
             SingOut
@@ -74,32 +75,37 @@ const Navbar = ({ children }) => {
     </>
   );
 
+  const includes = pathname.includes("dashboard")
+
+  console.log(includes);
   return (
     <div className="drawer drawer-end max-w-[1280px] mx-auto">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-base-300">
           {/* dashboard toggle btn  */}
-          <label
-            htmlFor="my-drawer-2"
-            tabIndex="0"
-            className="btn btn-ghost lg:hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {includes && (
+            <label
+              htmlFor="my-drawer-2"
+              tabIndex="0"
+              className="btn btn-ghost lg:hidden"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
-          </label>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </label>
+          )}
 
           <div className="flex-1 px-2 mx-2 font-semibold text-sky-700 items-end">
             <span className="text-orange-600 text-3xl mr-1 font-bold">3B </span>{" "}

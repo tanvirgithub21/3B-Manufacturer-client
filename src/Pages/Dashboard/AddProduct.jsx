@@ -12,8 +12,8 @@ const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = async data =>{
-      const addProductEmail = liveUser?.email
-      const productData = {...data, addProductEmail}
+      const userEmail = liveUser?.email
+      const productData = {...data, addProductEmail: userEmail}
         console.log(productData);
         await fetch("http://localhost:5000/product", {
             method: "POST",
