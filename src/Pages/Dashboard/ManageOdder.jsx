@@ -94,7 +94,7 @@ const ManageOdder = () => {
                     >
                       Delete
                     </button>
-                    {odder?.paymentStatus == "pay" ? (
+                    {(odder?.paymentStatus == "pay") && ((odder?.status) == "Pending") ? (
                       <button
                         onClick={() => handleConform(odder?._id)}
                         class="btn bg-success text-black hover:text-white"
@@ -102,7 +102,7 @@ const ManageOdder = () => {
                         Conform
                       </button>
                     ) : (
-                      <button disabled class="btn bg-success text-black hover:text-white">
+                      <button class="btn bg-[#545454] hover:bg-[#545454] text-[#9b9b9b]">
                         Conform
                       </button>
                     )}
