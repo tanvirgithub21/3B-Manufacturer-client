@@ -28,7 +28,7 @@ const Navbar = ({ children }) => {
 
       {liveUser && (
         <li className="ml-3">
-          <NavLink to="/dashboard/myOdder" className="rounded-md">
+          <NavLink to="/dashboard/myProfile" className="rounded-md">
             Dashboard
           </NavLink>
         </li>

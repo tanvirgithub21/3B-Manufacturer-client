@@ -1,4 +1,4 @@
-import { configure } from "@testing-library/react";
+import { computeHeadingLevel, configure } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 import {
   useAuthState,
@@ -19,6 +19,7 @@ const Login = () => {
   const location = useLocation();
 
   const [ existingUser, setExistingUser] = useState()
+  const [ exitingUser, setEaitingUaer] = useState(false)
 
   let from = location.state?.from?.pathname || "/";
 
@@ -50,25 +51,29 @@ const Login = () => {
   useEffect(() => {
 
 
-    // const email = liveUser?.email;
+    const email = liveUser?.email;
 
-    // if(email){
-    //   fetch(`http://localhost:5000/user?userEmail=${email}`,{
+    if(email){
+      // fetch(`http://localhost:5000/user?userEmail=tanvirkk@gmail.com`,{
+      fetch(`http://localhost:5000/user?userEmail=${email}`)
+      // fetch(`http://localhost:5000/user?userEmail=tan@gmail.com`)
+    //   ,{
     //     method: "GET",
     //     headers: {
     //       "content-type": "application/json",
     //     }
-    // })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if(data){
-    //         console.log("data paichi");
-    //       }else{
-    //         console.log("data paini");
-    //       }
-    //     })
-
     // }
+    // )
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch( error => {
+    toast.error(error.message)
+
+          setEaitingUaer(true) 
+          console.log(error);
+
+        })
+    }
 
 
     // {
@@ -80,11 +85,34 @@ const Login = () => {
     // }
 
 
-    error && toast.error(error.message.slice(22, -2).toUpperCase());
-    liveUser && navigate(from);
+
+
   }, [liveUser, error]);
   
+  console.log( exitingUser)
+  useEffect(() =>{
 
+    const userData = {userName: liveUser?.displayName, userEmail: liveUser?.email, userRoll: false}
+    // toast.error(exitingUser)
+
+
+    // if(exitingUser && (userData?.email)){
+    //   fetch("http://localhost:5000/user", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(userData),
+    //   })
+    //     .then((req) => req.json())
+    //     .then((data) => {
+    //       data && toast.success("user added");
+    //     });
+    
+    // }
+    error && toast.error(error.message.slice(22, -2).toUpperCase());
+    liveUser && navigate(from);
+  },[exitingUser, liveUser, error])
 
   return (
     <section className=" bg-accent">
