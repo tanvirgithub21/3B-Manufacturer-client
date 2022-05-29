@@ -18,7 +18,6 @@ import { BsStarHalf } from "react-icons/bs";
 const colorAndSize = { color: "#ffe234", fontSize: "1.3rem", display: "flex", marginRight: "6px" }
 
 const Rating = ({ children }) => {
-console.log(children)
   if(children == .5){
     return(
       <div style={colorAndSize}>

@@ -11,7 +11,7 @@ const AddReview = () => {
 
 
   const onSubmit = data =>{
-    console.log(data)
+    
     const userEmail = liveUser?.email
     const reviewData = {...data, userEmail}
 

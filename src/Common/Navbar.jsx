@@ -77,7 +77,6 @@ const Navbar = ({ children }) => {
 
   const includes = pathname.includes("dashboard");
 
-  console.log(includes);
   return (
     <div className="drawer drawer-end max-w-[1280px] mx-auto">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />

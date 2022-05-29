@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Rating from "../../Common/Rating";
 import auth from "../../fierbase.init";
 import useAdmin from "../../Hooks/useAdmin";
@@ -24,9 +25,33 @@ const ParchasePage = () => {
       .then((res) => res.json())
       .then((data) => setSinglePd(data));
   }, [id]);
-
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const odderData = {
+      ...data,
+      quantity,
+      productId: singlePd?._id,
+      odderUserEmail: liveUser?.email,
+      userName: rowData?.userName,
+      price: singlePd?.price,
+      paymentStatus: "No-payment",
+      pdImg: singlePd?.pdImg,
+      pdName: singlePd?.pdName,
+      transactionId: false,
+      status: "Pending"  
+    };
+    await fetch("http://localhost:5000/sendOdderInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(odderData),
+    })
+      .then((req) => req.json())
+      .then((data) => {
+        
+        data && toast.success("ADD YOUR ODDER");
+        reset();
+      });
   };
 
   let newDric;
@@ -86,7 +111,6 @@ const ParchasePage = () => {
               type="text"
               required
               defaultValue={rowData?.userName}
-              {...register("userName")}
               readOnly
             />
 
@@ -94,8 +118,7 @@ const ParchasePage = () => {
               className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline text-slate-400 bg-slate-200"
               type="email"
               required
-              defaultValue={rowData?.userEmail}
-              {...register("email")}
+              defaultValue={liveUser?.email}
               readOnly
             />
 

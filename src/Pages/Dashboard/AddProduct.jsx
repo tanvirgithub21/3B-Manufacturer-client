@@ -14,7 +14,6 @@ const AddProduct = () => {
     const onSubmit = async data =>{
       const userEmail = liveUser?.email
       const productData = {...data, addProductEmail: userEmail}
-        console.log(productData);
         await fetch("http://localhost:5000/product", {
             method: "POST",
             headers: {
@@ -24,7 +23,7 @@ const AddProduct = () => {
           })
             .then((req) => req.json())
             .then((data) => {
-              console.log(data)
+              
               data && toast.success("Product Added")
               reset()
             })

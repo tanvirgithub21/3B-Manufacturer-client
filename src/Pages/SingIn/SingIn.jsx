@@ -28,7 +28,6 @@ import { useLocation, useNavigate } from "react-router-dom";
       userEmail: data?.email,
       userRoll: false,
     };
-    console.log(userData);
     if (data?.confirmPass.length >= 6) {
       setError("");
       if (data.pass === data.confirmPass) {
