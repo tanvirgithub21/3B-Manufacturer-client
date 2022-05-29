@@ -5,6 +5,7 @@ import auth from "../../fierbase.init";
 
 const MyOdder = () => {
   const [odderData, setOdderData] = useState([]);
+  const [rerender, setRerender] = useState(true)
 
   const status = "pay";
 
@@ -24,11 +25,27 @@ const MyOdder = () => {
       .then((req) => req.json())
       .then((data) => {
         setOdderData(data);
-        data && toast.success("ADD YOUR ODDER");
       });
-  }, [liveUser]);
+  }, [liveUser, rerender]);
 
   console.log(odderData);
+
+  const oderDelete = (id) =>{
+    fetch('http://localhost:5000/odderDelete', {
+  method: 'DELETE',
+  headers: {
+    "id": `${id}`
+  }
+})
+  .then(res => res.json())
+  .then(data => {
+    // Do some stuff...
+    console.log("hoiche");
+    toast.success("Delete Success")
+    setRerender(!rerender)
+  })
+  .catch(err => console.log(err));
+  }
 
   return (
     <div className="p-5">
@@ -81,12 +98,12 @@ const MyOdder = () => {
                   {odder?.paymentStatus == "pay" ? (
                     <button
                       disabled
-                      className="font-medium text-gray-500 dark:text-gray-500 "
+                      className="font-medium text-gray-500 dark:text-gray-500"
                     >
                       Delete
                     </button>
                   ) : (
-                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <button onClick={()=> oderDelete(odder?._id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                       Delete
                     </button>
                   )}
