@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Rating from './Rating'
 
 const SinglePd = ({pd}) => {
@@ -30,7 +31,7 @@ const SinglePd = ({pd}) => {
             <Rating>{pd?.rating}</Rating>
           </div>
           <div className="card-actions justify-center">
-            <button className="btn btn-primary">Buy Now</button>
+            <Link to={pd?._id} className="btn btn-primary">Buy Now</Link>
           </div>
         </div>
       </div>

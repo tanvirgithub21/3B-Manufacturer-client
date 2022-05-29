@@ -72,7 +72,7 @@ const Home = () => {
       </section>
 
       <section className="px-5 my-[5rem]">
-        <h2 className="text-center font-semibold text-xl sm:text-3xl my-5">
+        <h2 className="text-center font-semibold text-xl sm:text-3xl mt-5 mb-10">
           Business Summary
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 md:gap-10 px-6">

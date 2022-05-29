@@ -5,6 +5,7 @@ const useAdmin = (userEmail) => {
 
 
     const [adminState, setAdminState] = useState(false)
+    const [rowData, setRowData] = useState({})
 
     useEffect(() => {
 
@@ -18,11 +19,12 @@ const useAdmin = (userEmail) => {
                 .then(res => res.json())
                 .then(data => {
                     setAdminState(data?.userRoll)
+                    setRowData(data)
                 })
         }
     }, [userEmail])
 
-    return [adminState, setAdminState]
+    return [adminState, setAdminState, rowData]
 
 }
 

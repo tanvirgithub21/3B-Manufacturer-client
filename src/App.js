@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Product from './Pages/Product/Product';
 import Forgot from './Pages/Login/Forgot';
+import ParchasePage from './Pages/ParchasePage/ParchasePage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<Blog />} />
           <Route path='/product' element={<Product />} />
+          <Route path='/product/:id' element={<ParchasePage />} />
 
           <Route path='/dashboard' element={<Dashboard />} >
             <Route path="myOdder" element={<MyOdder />} />

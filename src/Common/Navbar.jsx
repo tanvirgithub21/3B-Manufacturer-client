@@ -75,7 +75,7 @@ const Navbar = ({ children }) => {
     </>
   );
 
-  const includes = pathname.includes("dashboard")
+  const includes = pathname.includes("dashboard");
 
   console.log(includes);
   return (
