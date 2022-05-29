@@ -6,38 +6,46 @@ import Rating from "../../Common/Rating";
 import auth from "../../fierbase.init";
 import useAdmin from "../../Hooks/useAdmin";
 
-const ParchasePage = (pd) => {
+const ParchasePage = () => {
   const { register, handleSubmit, reset } = useForm();
 
+  const [singlePd, setSinglePd] = useState({});
+
+  const [quantity, setQuantity] = useState(0);
+  const [disabled, setDisabled] = useState(false);
+
   const [liveUser] = useAuthState(auth);
+
+  const [, , rowData] = useAdmin(liveUser?.email);
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/singleProduct?pd=${id}`)
+      .then((res) => res.json())
+      .then((data) => setSinglePd(data));
+  }, [id]);
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
   let newDric;
-  //   if (pd?.pdDric?.length >= 250) {
-  //     newDric = pd?.pdDric.slice(0, 245) + " " + "...";
-  //   } else {
-  //     newDric = pd?.pdDric;
-  //   }
-  const [, , rowData] = useAdmin(liveUser?.email);
-  const { id } = useParams();
-  console.log(id);
+  if (singlePd?.pdDric?.length >= 250) {
+    newDric = singlePd?.pdDric.slice(0, 245) + " " + "...";
+  } else {
+    newDric = singlePd?.pdDric;
+  }
 
-  const [min, setMin] = useState(50);
-  const [abal, setAbal] = useState(100);
-  const [qu, setQu] = useState(0);
-  const [on, off] = useState(false);
   useEffect(() => {
-    if (min <= qu && abal >= qu) {
-      console.log("ok", qu);
-      off(true);
+    if (
+      parseInt(singlePd?.minOdder) <= quantity &&
+      parseInt(singlePd?.availablePd) >= quantity
+    ) {
+      setDisabled(true);
     } else {
-      console.log("not ok");
-      off(false);
+      setDisabled(false);
     }
-  }, [qu]);
+  }, [quantity]);
 
   return (
     <section>
@@ -50,17 +58,15 @@ const ParchasePage = (pd) => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">{pd?.pdName}</h2>
+            <h2 className="card-title">{singlePd?.pdName}</h2>
             <p>{newDric}</p>
             <div className="flex justify-between items-center text-base font-semibold">
-              {/* <h2>Minimum Odder {pd?.minOdder}</h2>
-              <h2>Available Product {pd?.availablePd}</h2> */}
-              <h2>Minimum Odder {min}</h2>
-              <h2>Available Product {abal}</h2>
+              <h2>Minimum Odder {singlePd?.minOdder}</h2>
+              <h2>Available Product {singlePd?.availablePd}</h2>
             </div>
             <div className="flex justify-between items-center text-base font-semibold mb-5">
-              <h2>Price: $ {pd?.price}</h2>
-              <Rating>{pd?.rating}</Rating>
+              <h2>Price: $ {singlePd?.price}</h2>
+              <Rating>{singlePd?.rating}</Rating>
             </div>
           </div>
         </div>
@@ -114,11 +120,11 @@ const ParchasePage = (pd) => {
               type="number"
               required
               placeholder="Quantity"
-              onChange={(e) => setQu(e.target.value)}
+              onChange={(e) => setQuantity(e.target.value)}
             />
 
             <div className="mb-4">
-              {on ? (
+              {disabled ? (
                 <button className="btn btn-accent w-full" type="submit">
                   PURCHASE NOW
                 </button>
