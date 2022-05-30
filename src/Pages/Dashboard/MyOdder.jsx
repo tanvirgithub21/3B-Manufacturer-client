@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import auth from "../../fierbase.init";
 
 const MyOdder = () => {
   const [odderData, setOdderData] = useState([]);
-  const [rerender, setRerender] = useState(true)
+  const [rerender, setRerender] = useState(true);
+  const [action, setAction] = useState(false);
 
-  const status = "pay";
-
-  const paid = <td className="px-6 py-4 ">Paid</td>;
-  const pay = (
-    <td className="px-6 py-4 ">
-      <button className="px-5 py-2 bg-[#1093eb] hover:bg-[#3493d3] text-black font-semibold rounded-lg">
-        Pay
-      </button>
-    </td>
-  );
+  const confirmAlert = () => {};
+  confirmAlert();
 
   const [liveUser] = useAuthState(auth);
 
@@ -30,46 +24,61 @@ const MyOdder = () => {
 
   console.log(odderData);
 
-  const handelOderDelete = (id) =>{
-    fetch('http://localhost:5000/odderDelete', {
-  method: 'DELETE',
-  headers: {
-    "id": `${id}`
-  }
-})
-  .then(res => res.json())
-  .then(data => {
-    // Do some stuff...
-    console.log("hoiche");
-    toast.success("Delete Success")
-    setRerender(!rerender)
-  })
-  .catch(err => console.log(err));
-  }
-
-
-
-  const handelPay = id =>{
-    fetch(`http://localhost:5000/odderPay/${id}`, {
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(res => res.json())
-    .then(data => {
-      if(data){
-        toast.success("payment successful")
-        setRerender(!rerender)
-      }else{
-        toast.error("Payment Not send")
+  const handelOderDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch("http://localhost:5000/odderDelete", {
+          method: "DELETE",
+          headers: { id: `${id}` },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            setRerender(!rerender);
+          });
       }
-    })
-    
-  }
+    });
+  };
 
+  const handelPay = (id, name) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Pay for ${name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("true");
 
-
+        fetch(`http://localhost:5000/odderPay/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              Swal.fire("Successful!", "payment successful.", "success");
+              setRerender(!rerender);
+            } else {
+              Swal.fire("Error!", "Payment Not send.", "Error");
+            }
+          });
+      }
+    });
+  };
 
   return (
     <div className="p-5">
@@ -113,7 +122,12 @@ const MyOdder = () => {
                   <td className="px-6 py-4">Paid</td>
                 ) : (
                   <td>
-                    <button onClick={()=> handelPay(odder?._id)} className="btn btn-sm btn-success">Pay</button>
+                    <button
+                      onClick={() => handelPay(odder?._id, odder?.pdName)}
+                      className="btn btn-sm btn-success"
+                    >
+                      Pay
+                    </button>
                   </td>
                 )}
 
@@ -127,7 +141,10 @@ const MyOdder = () => {
                       Delete
                     </button>
                   ) : (
-                    <button onClick={()=> handelOderDelete(odder?._id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <button
+                      onClick={() => handelOderDelete(odder?._id)}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
                       Delete
                     </button>
                   )}
