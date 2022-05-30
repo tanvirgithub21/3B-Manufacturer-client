@@ -20,7 +20,7 @@ const useSetUserData = (user) => {
                 },
             })
                 .then((req) => req.json())
-                .then((data) => console.log(data));
+                .then((data) => setToken(data))
         }
     }, [email])
 

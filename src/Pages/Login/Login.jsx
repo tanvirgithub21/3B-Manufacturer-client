@@ -79,6 +79,10 @@ const Login = () => {
     liveUser && navigate(from);
   },[exitingUser, liveUser, error])
 
+  if(token){
+    navigate(from)
+  }
+
   return (
     <section className=" bg-accent">
       <h2 className="text-white text-3xl text-center mt-5 font-semibold">

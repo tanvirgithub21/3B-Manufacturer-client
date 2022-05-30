@@ -60,9 +60,9 @@ const SingIn = () => {
     }
   };
 
-  // if (data) {
-  //   navigate(from);
-  // }
+  if (token) {
+    navigate(from);
+  }
 
   return (
     <section className="min-h-[91%] bg-accent">
