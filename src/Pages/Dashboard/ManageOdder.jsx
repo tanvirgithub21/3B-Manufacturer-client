@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ManageOdder = () => {
   const [allOdder, setAllOdder] = useState([]);
@@ -20,26 +21,60 @@ const ManageOdder = () => {
   );
 
   const handleDelete = (id) => {
-    fetch("http://localhost:5000/odderDelete", {
-      method: "DELETE",
-      headers: {
-        id: `${id}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success("Product Delete");
-        setFatch(!reFatch);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch("http://localhost:5000/odderDelete", {
+          method: "DELETE",
+          headers: {
+            id: `${id}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            Swal.fire("Deleted!", "Your Product has been deleted.", "success");
+            setFatch(!reFatch);
+          });
+      } else {
+        Swal.fire("Error!", "Your Product has been Not deleted.", "Error");
+      }
+    });
   };
+
   const handleConform = async (id) => {
-    fetch(`http://localhost:5000/odderUpdate/${id}`, {
-      method: "PUT",
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        json && setFatch(!reFatch)
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Conform this odder!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/odderUpdate/${id}`, {
+          method: "PUT",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              setFatch(!reFatch);
+              Swal.fire("Conform!", "Your odder Conform.", "success");
+            } else {
+              Swal.fire("Error!", "Your Odder has been Not Conform.", "Error");
+            }
+          });
+      } else {
+        Swal.fire("Error!", "Your Odder has been Not Conform.", "Error");
+      }
+    });
   };
 
   return (
@@ -96,7 +131,8 @@ const ManageOdder = () => {
                     >
                       Delete
                     </button>
-                    {(odder?.paymentStatus == "pay") && ((odder?.status) == "Pending") ? (
+                    {odder?.paymentStatus == "pay" &&
+                    odder?.status == "Pending" ? (
                       <button
                         onClick={() => handleConform(odder?._id)}
                         class="btn bg-success btn-sm text-black hover:text-white"
