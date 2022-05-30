@@ -30,7 +30,7 @@ const MyOdder = () => {
 
   console.log(odderData);
 
-  const oderDelete = (id) =>{
+  const handelOderDelete = (id) =>{
     fetch('http://localhost:5000/odderDelete', {
   method: 'DELETE',
   headers: {
@@ -46,6 +46,30 @@ const MyOdder = () => {
   })
   .catch(err => console.log(err));
   }
+
+
+
+  const handelPay = id =>{
+    fetch(`http://localhost:5000/odderPay/${id}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data){
+        toast.success("payment successful")
+        setRerender(!rerender)
+      }else{
+        toast.error("Payment Not send")
+      }
+    })
+    
+  }
+
+
+
 
   return (
     <div className="p-5">
@@ -63,7 +87,7 @@ const MyOdder = () => {
               {/* <th scope="col" className="px-6 py-3">
                 Transaction ID
               </th> */}
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="pr-6 py-3">
                 Payment Status
               </th>
               <th scope="col" className="px-6 py-3">
@@ -89,7 +113,7 @@ const MyOdder = () => {
                   <td className="px-6 py-4">Paid</td>
                 ) : (
                   <td>
-                    <button className="btn btn-success">Pay</button>
+                    <button onClick={()=> handelPay(odder?._id)} className="btn btn-sm btn-success">Pay</button>
                   </td>
                 )}
 
@@ -103,7 +127,7 @@ const MyOdder = () => {
                       Delete
                     </button>
                   ) : (
-                    <button onClick={()=> oderDelete(odder?._id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <button onClick={()=> handelOderDelete(odder?._id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                       Delete
                     </button>
                   )}

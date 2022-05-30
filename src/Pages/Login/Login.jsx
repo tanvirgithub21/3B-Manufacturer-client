@@ -54,25 +54,23 @@ const Login = () => {
     const email = liveUser?.email;
 
     if(email){
-      // fetch(`http://localhost:5000/user?userEmail=tanvirkk@gmail.com`,{
-      fetch(`http://localhost:5000/user?userEmail=${email}`)
-      // fetch(`http://localhost:5000/user?userEmail=tan@gmail.com`)
-    //   ,{
-    //     method: "GET",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     }
-    // }
-    // )
+      fetch(`http://localhost:5000/user?userEmail=${email}`,{
+      
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        }
+    }
+    )
         .then((res) => res.json())
         .then((data) => console.log(data))
-        .catch( error => {
-    toast.error(error.message)
+    //     .catch( error => {
+    // toast.error(error.message)
 
-          setEaitingUaer(true) 
-          console.log(error);
+    //       setEaitingUaer(true) 
+    //       console.log(error);
 
-        })
+    //     })
     }
 
 

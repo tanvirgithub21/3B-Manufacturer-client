@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const ManageOdder = () => {
   const [allOdder, setAllOdder] = useState([]);
-  const [reFatch, setRatch] = useState(false);
+  const [reFatch, setFatch] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/allOdderData")
@@ -29,7 +29,7 @@ const ManageOdder = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Product Delete");
-        setRatch(!reFatch);
+        setFatch(!reFatch);
       });
   };
   const handleConform = async (id) => {
@@ -37,7 +37,9 @@ const ManageOdder = () => {
       method: "PUT",
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((json) => {
+        json && setFatch(!reFatch)
+      });
   };
 
   return (
@@ -90,19 +92,19 @@ const ManageOdder = () => {
                   <div class="btn-group">
                     <button
                       onClick={() => handleDelete(odder?._id)}
-                      class="btn bg-red-600"
+                      class="btn btn-sm bg-red-600"
                     >
                       Delete
                     </button>
                     {(odder?.paymentStatus == "pay") && ((odder?.status) == "Pending") ? (
                       <button
                         onClick={() => handleConform(odder?._id)}
-                        class="btn bg-success text-black hover:text-white"
+                        class="btn bg-success btn-sm text-black hover:text-white"
                       >
                         Conform
                       </button>
                     ) : (
-                      <button class="btn bg-[#545454] hover:bg-[#545454] text-[#9b9b9b]">
+                      <button class="btn bg-[#545454] btn-sm hover:bg-[#545454] text-[#9b9b9b]">
                         Conform
                       </button>
                     )}
