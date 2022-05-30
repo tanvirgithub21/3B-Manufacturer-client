@@ -6,15 +6,12 @@ const useSetUserData = (user) => {
     const [token, setToken] = useState("")
     const email = user?.user?.email;
 
-    console.log(user?.email)
+ 
 
 
     useEffect(() => {
-        console.log("ooooooooooooooooooooooooooooooo");
-        console.log(email)
-        if (email) {
 
-            console.log("inside useEffect", email);
+        if (email) {
 
             fetch(`http://localhost:5000/user/${email}`, {
                 method: "PUT",

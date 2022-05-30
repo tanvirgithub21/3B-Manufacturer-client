@@ -54,46 +54,7 @@ const Login = () => {
     signInWithEmailAndPassword(data.email, data.pass);
   };
 
-  useEffect(() => {
 
-
-    const email = liveUser?.email;
-
-    if(email){
-      fetch(`http://localhost:5000/user?userEmail=${email}`,{
-      
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        }
-    }
-    )
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-    //     .catch( error => {
-    // toast.error(error.message)
-
-    //       setEaitingUaer(true) 
-    //       console.log(error);
-
-    //     })
-    }
-
-
-    // {
-      //   const userEmail = data.userEmail
-    //   const userData = { userName: liveUser?.displayName, userEmail: liveUser?.email, userRoll: false }
-    //   if(email != userEmail){
-        
-    //   }
-    // }
-
-
-
-
-  }, [liveUser, error]);
-  
-  console.log( exitingUser)
   useEffect(() =>{
 
     const userData = {userName: liveUser?.displayName, userEmail: liveUser?.email, userRoll: false}

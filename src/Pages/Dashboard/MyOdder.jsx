@@ -22,7 +22,6 @@ const MyOdder = () => {
       });
   }, [liveUser, rerender]);
 
-  console.log(odderData);
 
   const handelOderDelete = (id) => {
     Swal.fire({
@@ -59,7 +58,7 @@ const MyOdder = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("true");
+
 
         fetch(`http://localhost:5000/odderPay/${id}`, {
           method: "PUT",
