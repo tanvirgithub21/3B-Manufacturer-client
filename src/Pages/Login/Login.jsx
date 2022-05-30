@@ -12,19 +12,27 @@ import { toast } from "react-toastify";
 import Footer from "../../Common/Footer";
 import auth from "../../fierbase.init";
 import useExistingUser from "../../Hooks/useExistingUser";
+import useSetUserData from "../../Hooks/useSetUserData";
 
 const Login = () => {
   const [liveUser] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
+    useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, userEmail, loading, error] =
+      useSignInWithEmailAndPassword(auth);
+
+
+      const [token] = useSetUserData(userGoogle || userEmail)
+
+
   const [ existingUser, setExistingUser] = useState()
   const [ exitingUser, setEaitingUaer] = useState(false)
 
   let from = location.state?.from?.pathname || "/";
 
-  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
-    useSignInWithGoogle(auth);
 
   const handleGoogleLogin = async () => {
     await signInWithGoogle();
@@ -38,9 +46,7 @@ const Login = () => {
     //   .then((req) => req.json())
     //   .then((data) => data && navigate(from));
   };
-
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  
 
   const { register, handleSubmit } = useForm();
 

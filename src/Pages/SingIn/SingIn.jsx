@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../fierbase.init";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import useSetUserData from "../../Hooks/useSetUserData";
 
-  const SingIn = () => {
+const SingIn = () => {
   const [liveUser] = useAuthState(auth);
 
   const location = useLocation();
@@ -18,36 +20,32 @@ import { useLocation, useNavigate } from "react-router-dom";
 
   const [createUserWithEmailAndPassword, user, loading, emailUserError] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [updateProfile, updating, errorUpdateProfile] = useUpdateProfile(auth);
+
+  const [token] = useSetUserData(user);
 
   const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState("");
 
   const onSubmit = async (data) => {
-    const userData = {
-      userName: data?.name,
-      userEmail: data?.email,
-      userRoll: false,
-    };
+    // const email =  data?.email
+
     if (data?.confirmPass.length >= 6) {
       setError("");
       if (data.pass === data.confirmPass) {
-        createUserWithEmailAndPassword(data?.email, data?.pass);
+        await createUserWithEmailAndPassword(data?.email, data?.pass);
+        await updateProfile({ displayName: data?.name });
 
-        //send email verification send and store data to database
+        if (emailUserError) {
+          return toast.error(
+            `${emailUserError?.message.slice(22, -2)?.toUpperCase()}`
+          );
+        }
+
+        //send email verification
         if (!emailUserError) {
-          await fetch("http://localhost:5000/user", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-          })
-            .then((req) => req.json())
-            .then((data) => {
-              data && toast.success("Email Verification Sent");
-            });
-
-          reset();
+          toast.success("Email Verification Sent");
+          return reset();
         } else {
           toast.error(
             `${emailUserError?.message.slice(22, -2)?.toUpperCase()}`
@@ -62,9 +60,9 @@ import { useLocation, useNavigate } from "react-router-dom";
     }
   };
 
-  if (liveUser) {
-    navigate(from);
-  }
+  // if (data) {
+  //   navigate(from);
+  // }
 
   return (
     <section className="min-h-[91%] bg-accent">

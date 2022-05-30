@@ -17,7 +17,6 @@ const ParchasePage = () => {
 
   const [liveUser] = useAuthState(auth);
 
-  const [, , rowData] = useAdmin(liveUser?.email);
   const { id } = useParams();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const ParchasePage = () => {
       quantity,
       productId: singlePd?._id,
       odderUserEmail: liveUser?.email,
-      userName: rowData?.userName,
+      userName: liveUser?.displayName,
       price: singlePd?.price,
       paymentStatus: "No-payment",
       pdImg: singlePd?.pdImg,
@@ -110,7 +109,7 @@ const ParchasePage = () => {
               className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline text-slate-400 bg-slate-200"
               type="text"
               required
-              defaultValue={rowData?.userName}
+              defaultValue={liveUser?.displayName}
               readOnly
             />
 

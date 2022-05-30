@@ -13,7 +13,7 @@ const DashboardManu = ({ children }) => {
     if (!liveUser) {
       setAdminState(false);
     }
-  }, [liveUser, setAdminState]);
+  }, [ liveUser, setAdminState ]);
 
   return (
     <div className="drawer drawer-mobile">
