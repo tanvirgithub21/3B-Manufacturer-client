@@ -3,6 +3,7 @@ import { BsTools } from "react-icons/bs";
 import Footer from "../../Common/Footer";
 import Review from "../../Common/Review";
 import SinglePd from "../../Common/SinglePd";
+import { AiOutlineUser, AiFillFlag } from "react-icons/ai";
 
 const Home = () => {
   const url =
@@ -71,25 +72,31 @@ const Home = () => {
         </div>
       </section>
 
+
+      <section>
+
+      </section>
+
       <section className="px-5 my-[5rem]">
         <h2 className="text-center font-semibold text-xl sm:text-3xl mt-5 mb-10">
           Business Summary
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 md:gap-10 px-6">
           <div className="rounded bg-primary text-primary-content place-content-center flex flex-col items-center p-[2rem]">
-            <BsTools className="text-7xl" />
-            <p className="text-2xl font-[500] mt-3">Tootle Tootles</p>
-            <p className="text-3xl font-semibold">1200+</p>
+          <AiOutlineUser className="text-7xl"/>
+            <p className="text-2xl font-[500] mt-3">Customer</p>
+            <p className="text-3xl font-semibold">600+</p>
           </div>
           <div className="rounded bg-accent text-accent-content place-content-center flex flex-col items-center p-[2rem]">
-            <BsTools className="text-7xl" />
-            <p className="text-2xl font-[500] mt-3">Tootle Tootles</p>
-            <p className="text-3xl font-semibold">1200+</p>
+     
+            <AiFillFlag className="text-7xl"/>
+            <p className="text-2xl font-[500] mt-3">Annual Revenue</p>
+            <p className="text-3xl font-semibold">100M+</p>
           </div>
           <div className="rounded bg-secondary text-secondary-content place-content-center flex flex-col items-center p-[2rem]">
             <BsTools className="text-7xl" />
             <p className="text-2xl font-[500] mt-3">Tootle Tootles</p>
-            <p className="text-3xl font-semibold">1200+</p>
+            <p className="text-3xl font-semibold">1500+</p>
           </div>
         </div>
       </section>
